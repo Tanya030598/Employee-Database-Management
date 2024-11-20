@@ -94,107 +94,107 @@ VALUES
 (18, 95000.00, '2021-04-12', '2022-04-12'),
 (19, 75000.00, '2019-08-25', '2020-08-25');
 
-BASIC
-List all employees with their first and last names.
-SELECT first_name, last_name
-FROM employees;
+-- SQL Queries --
+-- Basic Queries--
 
-Get the email and hire date of the employee with ID 4
-SELECT email, hire_date
-FROM employees
-WHERE employee_id = 4;
+Query 1: List all employees with their first and last names.
+Ans-- SELECT first_name, last_name
+      FROM employees;
 
-Find employees who work in the 'Engineering' department
-SELECT first_name, last_name
-FROM employees
-WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'Engineering');
+Query 2: Get the email and hire date of the employee with ID 4
+Ans-- SELECT email, hire_date
+      FROM employees
+      WHERE employee_id = 4;
 
-List all departments in the company.
-SELECT department_name
-FROM departments;
+Query 3: Find employees who work in the 'Engineering' department
+Ans-- SELECT first_name, last_name
+      FROM employees
+      WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'Engineering');
 
-Get the first and last names of employees who were hired after January 1, 2020
-SELECT first_name, last_name, hire_date
-FROM employees
-WHERE hire_date > '2020-01-01';
+Query 4: List all departments in the company.
+Ans-- SELECT department_name
+      FROM departments;
 
-Intermediate 
-Get the count of employees in each department.
-SELECT d.department_name, COUNT(e.employee_id) AS num_employees
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-GROUP BY d.department_name;
+Query 5: Get the first and last names of employees who were hired after January 1, 2020
+Ans-- SELECT first_name, last_name, hire_date
+      FROM employees
+      WHERE hire_date > '2020-01-01';
 
-Get the employees who earn more than $75,000.
-SELECT e.first_name, e.last_name, s.salary
-FROM employees e
-JOIN salaries s ON e.employee_id = s.employee_id
-WHERE s.salary > 75000;
+-- Intermediate Queries -- 
+Query 1: Get the count of employees in each department.
+Ans-- SELECT d.department_name, COUNT(e.employee_id) AS num_employees
+      FROM employees e
+      JOIN departments d ON e.department_id = d.department_id
+      GROUP BY d.department_name;
 
-Find the department with the highest number of employees.
-SELECT d.department_name, COUNT(e.employee_id) AS num_employees
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-GROUP BY d.department_name
-ORDER BY num_employees DESC
-LIMIT 1;
+Query 2: Get the employees who earn more than $75,000.
+Ans-- SELECT e.first_name, e.last_name, s.salary
+      FROM employees e
+      JOIN salaries s ON e.employee_id = s.employee_id
+      WHERE s.salary > 75000;
 
-Get the average salary for each department.
-SELECT d.department_name, AVG(s.salary) AS avg_salary
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-JOIN salaries s ON e.employee_id = s.employee_id
-GROUP BY d.department_name;
+Query 3: Find the department with the highest number of employees.
+Ans-- SELECT d.department_name, COUNT(e.employee_id) AS num_employees
+      FROM employees e
+      JOIN departments d ON e.department_id = d.department_id
+      GROUP BY d.department_name
+      ORDER BY num_employees DESC
+      LIMIT 1;
 
-Find employees who have changed job titles from 'Software Engineer' to a different title
-SELECT e.first_name, e.last_name, s1.job_title AS previous_job, s2.job_title AS current_job
-FROM employees e
-JOIN job_titles s1 ON e.employee_id = s1.employee_id
-JOIN job_titles s2 ON e.employee_id = s2.employee_id
-WHERE s1.job_title = 'Software Engineer' AND s2.job_title != 'Software Engineer' AND s1.from_date < s2.from_date;
+Query 4: Get the average salary for each department.
+Ans-- SELECT d.department_name, AVG(s.salary) AS avg_salary
+      FROM employees e
+      JOIN departments d ON e.department_id = d.department_id
+      JOIN salaries s ON e.employee_id = s.employee_id
+      GROUP BY d.department_name;
 
-ADVANCE
-Find the employee with the highest salary in each department.
-SELECT d.department_name, e.first_name, e.last_name, MAX(s.salary) AS max_salary
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-JOIN salaries s ON e.employee_id = s.employee_id
-GROUP BY d.department_name
-ORDER BY max_salary DESC;
+Query 5: Find employees who have changed job titles from 'Software Engineer' to a different title
+Ans-- SELECT e.first_name, e.last_name, s1.job_title AS previous_job, s2.job_title AS current_job
+      FROM employees e
+      JOIN job_titles s1 ON e.employee_id = s1.employee_id
+      JOIN job_titles s2 ON e.employee_id = s2.employee_id
+      WHERE s1.job_title = 'Software Engineer' AND s2.job_title != 'Software Engineer' AND s1.from_date < s2.from_date;
 
-List employees who are earning more than the average salary in their department
-SELECT e.first_name, e.last_name, s.salary, d.department_name
-FROM employees e
-JOIN salaries s ON e.employee_id = s.employee_id
-JOIN departments d ON e.department_id = d.department_id
-WHERE s.salary > (
-    SELECT AVG(salary)
-    FROM salaries
-    WHERE employee_id IN (SELECT employee_id FROM employees WHERE department_id = e.department_id)
+-- Advance Queries --
+Query 1: Find the employee with the highest salary in each department.
+Ans-- SELECT d.department_name, e.first_name, e.last_name, MAX(s.salary) AS max_salary
+      FROM employees e
+      JOIN departments d ON e.department_id = d.department_id
+      JOIN salaries s ON e.employee_id = s.employee_id
+      GROUP BY d.department_name
+      ORDER BY max_salary DESC;
+
+Query 2: List employees who are earning more than the average salary in their department
+Ans-- SELECT e.first_name, e.last_name, s.salary, d.department_name
+      FROM employees e
+      JOIN salaries s ON e.employee_id = s.employee_id
+      JOIN departments d ON e.department_id = d.department_id
+      WHERE s.salary > (SELECT AVG(salary) FROM salaries
+      WHERE employee_id IN (SELECT employee_id FROM employees WHERE department_id = e.department_id)
 );
 
-Find employees who have received a salary increase compared to the previous year.
-SELECT e.first_name, e.last_name, s1.salary AS previous_salary, s2.salary AS current_salary
-FROM employees e
-JOIN salaries s1 ON e.employee_id = s1.employee_id
-JOIN salaries s2 ON e.employee_id = s2.employee_id
-WHERE s1.from_date < s2.from_date AND s2.from_date = DATE_ADD(s1.to_date, INTERVAL 1 YEAR)
-AND s2.salary > s1.salary;
+Query 3: Find employees who have received a salary increase compared to the previous year.
+Ans-- SELECT e.first_name, e.last_name, s1.salary AS previous_salary, s2.salary AS current_salary
+      FROM employees e
+      JOIN salaries s1 ON e.employee_id = s1.employee_id
+      JOIN salaries s2 ON e.employee_id = s2.employee_id
+      WHERE s1.from_date < s2.from_date AND s2.from_date = DATE_ADD(s1.to_date, INTERVAL 1 YEAR)
+      AND s2.salary > s1.salary;
 
-Get the total salary expenditure for each department
-SELECT d.department_name, SUM(s.salary) AS total_salary_expense
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-JOIN salaries s ON e.employee_id = s.employee_id
-GROUP BY d.department_name;
+Query 4: Get the total salary expenditure for each department
+Ans-- SELECT d.department_name, SUM(s.salary) AS total_salary_expense
+      FROM employees e
+      JOIN departments d ON e.department_id = d.department_id
+      JOIN salaries s ON e.employee_id = s.employee_id
+      GROUP BY d.department_name;
 
-List departments where the total salary exceeds $500,000.
-SELECT d.department_name, SUM(s.salary) AS total_salary_expense
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-JOIN salaries s ON e.employee_id = s.employee_id
-GROUP BY d.department_name
-HAVING total_salary_expense > 500000;
+Query 5: List departments where the total salary exceeds $500,000.
+Ans-- SELECT d.department_name, SUM(s.salary) AS total_salary_expense
+      FROM employees e
+      JOIN departments d ON e.department_id = d.department_id
+      JOIN salaries s ON e.employee_id = s.employee_id
+      GROUP BY d.department_name
+      HAVING total_salary_expense > 500000;
 
 
 
