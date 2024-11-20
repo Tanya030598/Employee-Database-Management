@@ -1,13 +1,15 @@
+-- schema.sql --
+
 CREATE DATABASE EmployeeDB;
 USE EmployeeDB;
 
--- Create the Departments table
+-- Create the 'Departments' table --
 CREATE TABLE departments (
     department_id INT AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(100) NOT NULL
 );
 
--- Create the Employees table
+-- Create the 'Employees' table --
 CREATE TABLE employees (
     employee_id INT AUTO_INCREMENT PRIMARY KEY, 
     first_name VARCHAR(100) NOT NULL,
@@ -20,7 +22,7 @@ CREATE TABLE employees (
     FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
 
--- Create the Salaries table
+-- Create the 'Salaries' table --
 CREATE TABLE salaries (
     employee_id INT,
     salary DECIMAL(10, 2),
