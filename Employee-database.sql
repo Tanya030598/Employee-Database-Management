@@ -32,8 +32,13 @@ CREATE TABLE salaries (
     FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );
 
--- Insert Departments
-INSERT INTO departments (department_name) VALUES
+-- Add Data --
+-- data.sql --
+
+-- Insert data in Departments table --
+INSERT INTO departments
+(department_name) 
+VALUES
 ('Human Resources'),
 ('Engineering'),
 ('Sales'),
@@ -41,8 +46,10 @@ INSERT INTO departments (department_name) VALUES
 ('Finance'),
 ('IT Support');
 
--- Insert Employees
-INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, job_title, department_id) VALUES
+-- Insert data in Employees table --
+INSERT INTO employees
+(first_name, last_name, email, phone_number, hire_date, job_title, department_id)
+VALUES
 ('John', 'Doe', 'john.doe@example.com', '123-456-7890', '2021-01-15', 'Software Engineer', 2),
 ('Jane', 'Smith', 'jane.smith@example.com', '234-567-8901', '2019-06-10', 'HR Manager', 1),
 ('Alice', 'Johnson', 'alice.johnson@example.com', '345-678-9012', '2020-03-20', 'Sales Manager', 3),
@@ -63,8 +70,10 @@ INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, jo
 ('Quincy', 'Harris', 'quincy.harris@example.com', '890-123-4567', '2021-04-12', 'Financial Analyst', 5),
 ('Rachel', 'Young', 'rachel.young@example.com', '901-234-5678', '2019-08-25', 'Software Engineer', 2);
 
--- Insert Salaries
-INSERT INTO salaries (employee_id, salary, from_date, to_date) VALUES
+-- Insert data in Salaries table --
+INSERT INTO salaries
+(employee_id, salary, from_date, to_date)
+VALUES
 (1, 95000.00, '2021-01-15', '2022-01-15'),
 (2, 72000.00, '2019-06-10', '2020-06-10'),
 (3, 85000.00, '2020-03-20', '2021-03-20'),
