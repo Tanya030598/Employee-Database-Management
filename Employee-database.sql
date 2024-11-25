@@ -107,9 +107,10 @@ Ans-- SELECT email, hire_date
       WHERE employee_id = 4;
 
 Query 3: Find employees who work in the 'Engineering' department
-Ans-- SELECT first_name, last_name
-      FROM employees
-      WHERE department_id = (SELECT department_id FROM departments WHERE department_name = 'Engineering');
+Ans-- SELECT e.first_name, e.last_name
+      FROM employees e
+      Join departments d on d.department_id=e.department_id
+      WHERE d.department_name='Engineering';
 
 Query 4: List all departments in the company.
 Ans-- SELECT department_name
@@ -121,10 +122,11 @@ Ans-- SELECT first_name, last_name, hire_date
       WHERE hire_date > '2020-01-01';
 
 -- Intermediate Queries -- 
+
 Query 1: Get the count of employees in each department.
 Ans-- SELECT d.department_name, COUNT(e.employee_id) AS num_employees
-      FROM employees e
-      JOIN departments d ON e.department_id = d.department_id
+      FROM departments d
+      JOIN employees e ON e.department_id = d.department_id
       GROUP BY d.department_name;
 
 Query 2: Get the employees who earn more than $75,000.
@@ -135,8 +137,8 @@ Ans-- SELECT e.first_name, e.last_name, s.salary
 
 Query 3: Find the department with the highest number of employees.
 Ans-- SELECT d.department_name, COUNT(e.employee_id) AS num_employees
-      FROM employees e
-      JOIN departments d ON e.department_id = d.department_id
+      FROM departments d
+      JOIN employees e ON e.department_id = d.department_id
       GROUP BY d.department_name
       ORDER BY num_employees DESC
       LIMIT 1;
@@ -148,18 +150,12 @@ Ans-- SELECT d.department_name, AVG(s.salary) AS avg_salary
       JOIN salaries s ON e.employee_id = s.employee_id
       GROUP BY d.department_name;
 
-Query 5: Find employees who have changed job titles from 'Software Engineer' to a different title
-Ans-- SELECT e.first_name, e.last_name, s1.job_title AS previous_job, s2.job_title AS current_job
-      FROM employees e
-      JOIN job_titles s1 ON e.employee_id = s1.employee_id
-      JOIN job_titles s2 ON e.employee_id = s2.employee_id
-      WHERE s1.job_title = 'Software Engineer' AND s2.job_title != 'Software Engineer' AND s1.from_date < s2.from_date;
-
 -- Advance Queries --
+
 Query 1: Find the employee with the highest salary in each department.
-Ans-- SELECT d.department_name, e.first_name, e.last_name, MAX(s.salary) AS max_salary
-      FROM employees e
-      JOIN departments d ON e.department_id = d.department_id
+Ans-- SELECT d.department_name, MAX(s.salary) AS max_salary
+      FROM departments d
+      JOIN employees e ON e.department_id = d.department_id
       JOIN salaries s ON e.employee_id = s.employee_id
       GROUP BY d.department_name
       ORDER BY max_salary DESC;
