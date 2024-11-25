@@ -160,34 +160,17 @@ Ans-- SELECT d.department_name, MAX(s.salary) AS max_salary
       GROUP BY d.department_name
       ORDER BY max_salary DESC;
 
-Query 2: List employees who are earning more than the average salary in their department
-Ans-- SELECT e.first_name, e.last_name, s.salary, d.department_name
-      FROM employees e
-      JOIN salaries s ON e.employee_id = s.employee_id
-      JOIN departments d ON e.department_id = d.department_id
-      WHERE s.salary > (SELECT AVG(salary) FROM salaries
-      WHERE employee_id IN (SELECT employee_id FROM employees WHERE department_id = e.department_id)
-);
-
-Query 3: Find employees who have received a salary increase compared to the previous year.
-Ans-- SELECT e.first_name, e.last_name, s1.salary AS previous_salary, s2.salary AS current_salary
-      FROM employees e
-      JOIN salaries s1 ON e.employee_id = s1.employee_id
-      JOIN salaries s2 ON e.employee_id = s2.employee_id
-      WHERE s1.from_date < s2.from_date AND s2.from_date = DATE_ADD(s1.to_date, INTERVAL 1 YEAR)
-      AND s2.salary > s1.salary;
-
-Query 4: Get the total salary expenditure for each department
+Query 2: Get the total salary expenditure for each department
 Ans-- SELECT d.department_name, SUM(s.salary) AS total_salary_expense
-      FROM employees e
-      JOIN departments d ON e.department_id = d.department_id
+      FROM departments d
+      JOIN employees e ON e.department_id = d.department_id
       JOIN salaries s ON e.employee_id = s.employee_id
       GROUP BY d.department_name;
 
-Query 5: List departments where the total salary exceeds $500,000.
+Query 3: List departments where the total salary exceeds $500,000.
 Ans-- SELECT d.department_name, SUM(s.salary) AS total_salary_expense
-      FROM employees e
-      JOIN departments d ON e.department_id = d.department_id
+      FROM departments d
+      JOIN employees e ON e.department_id = d.department_id
       JOIN salaries s ON e.employee_id = s.employee_id
       GROUP BY d.department_name
       HAVING total_salary_expense > 500000;
