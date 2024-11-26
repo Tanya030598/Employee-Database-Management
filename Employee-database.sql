@@ -175,10 +175,3 @@ Ans-- SELECT d.department_name, SUM(s.salary) AS total_salary_expense
       GROUP BY d.department_name
       HAVING total_salary_expense > 500000;
 
-
-
-Summary
-Basic queries are focused on simple selections and conditions (SELECT, WHERE).
-Intermediate queries include joining tables, grouping data, and using aggregate functions like COUNT() and AVG().
-Advanced queries often involve subqueries, more complex joins, advanced filtering, and window functions, like finding maximum values, comparing data over time, and summing values across groups.
-These queries demonstrate a range of SQL skills, from basic retrieval of data to complex calculations and comparisons.
