@@ -11,4 +11,4 @@ TECHNICAL SKILLS: In this project we create, and manage data using where, having
 RESULT: The result of the Employee Database Management system is a well-organized database that stores employee details, making it easy to search, update, and manage records. It improves 
         efficiency and accuracy in handling employee information for various organizational needs.
 
-LINK: https://github.com/Tanya030598/Employee-Database-Management
+LINK: https://github.com/Tanya030598/Employee-Database-Management/blob/main/Employee-database.sql
